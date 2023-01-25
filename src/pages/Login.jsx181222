@@ -1,0 +1,132 @@
+import {
+  FormControl,
+  Input,
+  FormLabel,
+  Box,
+  Button,
+  Spinner,
+  Cont,
+  Container,
+  InputLeftElement,
+  InputRightElement,
+  Stack,
+  Center,
+  Flex,
+  InputGroup
+} from '@chakra-ui/react'
+import React,{useState} from 'react'
+import axios from 'axios'
+import {useHistory} from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { authenticated } from '../store/authStore'
+import { useToast } from '@chakra-ui/react'
+import Logo from '../assets/images/logo.png'
+import { PhoneIcon } from '@chakra-ui/icons'
+
+export default function Login(){
+  const [showPassword, setShowPassword] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [auth,setAuth] = useRecoilState(authenticated)
+  const [loading, setLoading] = useState(false)
+    const check = auth.auth
+  const history = useHistory()
+  const toast = useToast()
+
+  const handleLogin = async(e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      const response = await axios.post('/user/login', {
+        username,
+        password
+      })
+
+      localStorage.setItem('token', response.data.accessToken)
+      setAuth({
+        auth : true,
+        data : response.data.user
+      })
+      setLoading(false)
+
+      // history('/')
+      toast({
+        title: `Welcome ${response.data.user.username}`,
+        position : 'top-right',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+      history.push('/')
+
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+      toast({
+        title: `Credentials doesnt match our record`,
+        position : 'top-right',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+  }
+
+  return (
+    <>
+      <Flex justify={'center'} align={'center'}>
+      <Box borderWidth='1px' borderRadius='lg' overflow='hidden' p={14} marginTop={200} w='35%'>
+        <form onSubmit={handleLogin} autoComplete="off">
+          <FormControl>
+            <Center>
+            <img src={Logo} alt="" width={170}/>
+            </Center>
+          </FormControl>
+        <FormControl>   
+          <FormLabel htmlFor='email'>
+            Username
+          </FormLabel>
+          <Input type={'text'} value={username} placeholder="Type Username Here..." onChange={(e) => setUsername(e.target.value)} autoComplete="new-password" isRequired/>
+        </FormControl>
+        <FormControl>   
+          <FormLabel htmlFor='email'>
+            Password
+          </FormLabel>
+          <InputGroup>
+          {/* <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    children={<CFaLock color="gray.300" />}
+                  /> */}
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="new-password"
+                    isRequired
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+          </InputGroup>
+          {/* <Input type={'password'} value={password} placeholder="Type Password Here..." onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" isRequired/> */}
+
+        </FormControl>
+        <Stack marginTop={50}> 
+          <Button colorScheme={'red'} type="submit" variant={'solid'}>
+            {
+              loading === true ? (
+                <Spinner />
+              ) : 'Login'
+            }
+          </Button>  
+        </Stack>
+        </form>
+      </Box>
+      </Flex>
+    </>
+  )
+}

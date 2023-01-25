@@ -1,0 +1,80 @@
+[
+  {
+    "display_name": "Dashboard",
+    "route": "/",
+    "icon": "bx bx-category-alt",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Issue",
+    "route": "/issue",
+    "icon": "bx bx-error",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Top 10 User",
+    "route": "/toptenuser",
+    "icon": "bx bxs-user-detail",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Top 10 Activity",
+    "route": "/toptenactivity",
+    "icon": "bx bx-bar-chart-alt",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Summary DB",
+    "route": "/summarydb",
+    "icon": "bx bxs-data",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Summary Storage",
+    "route": "/summarystorage",
+    "icon": "bx bxs-hdd",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Summary Tc Dashboard",
+    "route": "/summarytc",
+    "icon": "bx bx-line-chart",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "List Of Feature",
+    "route": "/listoffeature",
+    "icon": "bx bx-list-ul",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "App Cpu",
+    "route": "/appcpu",
+    "icon": "bx bx-chip",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Next Activity",
+    "route": "/nextactivity",
+    "icon": "bx bx-calendar",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Simaco Report",
+    "route": "/simaco",
+    "icon": "bx bxs-report",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Health Check",
+    "route": "/healthcheck",
+    "icon": "bx bx-pulse",
+    "cpi": "tidak"
+  },
+  {
+    "display_name": "Recon User",
+    "route": "/reconuser",
+    "icon": "bx bx-user-circle",
+    "cpi": "tidak"
+  }
+]
